@@ -1,0 +1,25 @@
+<% provide(:title,"Sign Up") %>
+<div><!-- below each tag it the HTML generated. -->
+  <%= form_for(@user) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <!-- <label for="user_name">Name</label>
+    <input id="user_name" name="user[name]" type="text" /> -->
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    <!-- <label for="user_email">Email</label>
+    <input id="user_email" name="user[email]" type="email" /> -->
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <!-- <label for="user_password">Password</label>
+    <input id="user_password" name="user[password]" type="password" /> -->
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation %>
+    <!-- [same as above, but matching] -->
+    <%= f.submit "Create my account" %>
+    <!-- <form action="/users" class="new_user" id="new_user" method="post">: these create an HTTP POST request in the URL with the params in the form.
+    <input name="utf8" type="hidden" value="&#x2713;" />:these two last lines are used internally by Rails to prevent CSRF by using an authenticity token.
+    <input name="authenticity_token" type="hidden"
+    value="NNb6+J/j46LcrgYUC60wQ2titMuJQ5lLqyAbnbAUkdo=" />   -->
+  <% end %>
+</div>
