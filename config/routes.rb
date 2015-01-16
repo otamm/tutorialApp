@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   root 'static_pages#home' #changes 'URL code' to 'Ruby code', "class_name#method" is the syntax for returning the home controller method for 'static_pages' controller.
 
-  get 'static_pages/help'
+  get 'help'                => 'static_pages#help'
 
-  get 'static_pages/about'
+  get 'static_pages/about'  => 'static_pages#about'
+
+  get 'signup'              => 'users#new'
+
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
