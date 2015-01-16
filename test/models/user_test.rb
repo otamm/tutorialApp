@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase #on terminal: $bundle exec rake test:mo
   #   assert true
   # end
   def setup
-    @user = User.new(name: "Mr Celophane", email: "mr@celophane.net")
+    @user = User.new(name: "Mr Celophane", email: "mr@celophane.net", password: "h4ck3d", password_confirmation: "h4ck3d") #both password attributes are only useful in a sign up form,as the hashed password is saved with the user.
   end
 
   test "user is valid" do #this will check if the user's acceptable name & email above pass the validations for the model.
@@ -47,4 +47,21 @@ class UserTest < ActiveSupport::TestCase #on terminal: $bundle exec rake test:mo
     duplicate.email = @user.email.upcase #checks to see if the same e-mail can be saved again if written in, say, uppercase letters.
     @user.save
     assert_not duplicate.valid?
+  end
+
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * 5 #assigned two variables at the same time here.
+    assert_not @user.valid?
+  end
+
+  test "password should have a maximum length" do
+    @user.password = @user.password_confirmation = "a" * 17
+    assert_not @user.valid?
+  end
+
+  test "password and its confirmation should match" do
+    @user.password = "pwn3d"
+    @user.password_confirmation = "f41l_pwn3d"
+    assert_not @user.valid?
+  end
 end
