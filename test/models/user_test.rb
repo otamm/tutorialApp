@@ -38,7 +38,7 @@ class UserTest < ActiveSupport::TestCase #on terminal: $bundle exec rake test:mo
   end
 
   test "user with a very long email is not valid" do
-    @user.email = "a" + "@" + "a" * 252 + ".com"
+    @user.email = "a" + "@" + "a" * 249 + ".com"
     assert_not @user.valid?
   end
 end
