@@ -1,20 +1,21 @@
 <% provide(:title,"Sign Up") %>
 <div><!-- below each tag it the HTML generated. -->
   <%= form_for(@user) do |f| %>
+    <%= render 'shared/error_messages' %> <!-- renders error messages if they need to be displayed. 'class:form-control' makes sure they are displayed on specific problematic input fields. -->
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
     <!-- <label for="user_name">Name</label>
     <input id="user_name" name="user[name]" type="text" /> -->
     <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= f.email_field :email, class: 'form-control' %>
     <!-- <label for="user_email">Email</label>
     <input id="user_email" name="user[email]" type="email" /> -->
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, class: 'form-control' %>
     <!-- <label for="user_password">Password</label>
     <input id="user_password" name="user[password]" type="password" /> -->
     <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
     <!-- [same as above, but matching] -->
     <%= f.submit "Create my account" %>
     <!-- <form action="/users" class="new_user" id="new_user" method="post">: these create an HTTP POST request in the URL with the params in the form.
