@@ -12,12 +12,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user]) #uses the parameters (name: "aaa", email: "aaa",etc) posted in the URL after the 'submit' button on user/new is clicked on.
+    @user = User.new(user_params)   #uses the parameters (name: "aaa", email: "aaa",etc) posted in the URL after the 'submit' button on user/new is clicked on.
                                     #also note that '(params)' returns a hash of hashes, while (params[:user]) return the hash which contains the user's attributes.
                                     #the form is not secure just by (params[:user]), as any user can use CSRF attacks and, say, pass "admin=true" with curl and sign itself as an admin.
                                     #better to use the 'strong_params' convention of Rails 4 and permit only a pre-defined set of params to be passed by the user (see user_params below).
     if @user.save #default action for saved user.
-
+      redirect_to "/users/#{@user.id}"
     else
       render 'new' #renders the form page again (with errors output) if the user wasn't valid.
     end
