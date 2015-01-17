@@ -13,7 +13,21 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         email: "user@invalid",
         password:              "foo",
         password_confirmation: "bar" }
-      end
-      assert_template 'users/new'
     end
+      assert_template 'users/new'
+  end
+
+  test "legitimate signup saves user to db & renders user page" do
+    get signup_path
+    assert_difference 'User.count' do
+      post users_path, user: {
+        name: "Akshovsky Johnson",
+        email: "akj_swag@bol.com",
+        password: "h4ck3d",
+        password_confirmation: "h4ck3d"
+      }
+    end
+      assert_template 'users/show'
+  end
+
 end
