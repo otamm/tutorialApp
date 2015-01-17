@@ -4,14 +4,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
-  get new_user_path
-
-  assert_no_difference 'User.count' do #arrange for comparison of 'User.count' before and after the block runs.
-    post users_path, user: { name:  "",
-      email: "user@invalid",
-      password:              "foo",
-      password_confirmation: "bar" }
-    end
+  #get '/signup'
 
   test "invalid signup information" do
     get signup_path

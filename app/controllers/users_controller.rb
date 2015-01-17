@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if @user.save #default action for saved user.
       flash[:notice] = "Thanks for signing up!" #popup triggered when new account is created.
       session[:user_id] = @user.id #session for the user is not created alongside the own user.
-      redirect_to @user #"/users/#{@user.id}"
+      redirect_to @user #equivalent to 'redirect_to(user_url(@user))', rails infer the 'user_url()' method
     else
       render 'new' #renders the form page (the view [new], not the route [signup]) again (with errors output) if the user wasn't valid.
     end

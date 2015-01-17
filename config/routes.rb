@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
   get 'about'               => 'static_pages#about'
 
-  get 'signup'              => 'users#new'
+  #match 'signup'            => 'users#new' #only '_path' methods automatically created are these generated through 'resources'
 
-  resources :users
 
+  resources :users, except: :new
+
+  get 'signup'            , to: 'users#new', as: :signup #only '_path' methods automatically created are these generated through 'resources'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
