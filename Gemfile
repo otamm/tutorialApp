@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+ruby '2.1.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use SCSS for stylesheets
@@ -50,11 +50,12 @@ group :test do
 end
 
 group :production do
- #use Postgresql database while in production mode.
- #the pg gem is giving a lot of problems to Yosemite users. Run 'pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start' to start the pg server (http://foobartel.com/2014/10/yosemite-upgrade-postgresql/)
- gem 'pg',             '0.17.1'
+  #use Postgresql database while in production mode.
+  #the pg gem is giving a lot of problems to Yosemite users. Run 'pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start' to start the pg server (http://foobartel.com/2014/10/yosemite-upgrade-postgresql/)
+  # to manipulate databases in heroku in production mode, use 'heroku run <rake command>'. Ex: heroku run rake db:migrate
+  gem 'pg',             '0.17.1'
 
- gem 'rails_12factor', '0.0.2'
-# Unicorn is a server (such as WEBrick), only more potent and capable of running a bigger app without major problems on a platform such as Heroku.
-gem 'unicorn',           '4.8.3'
+  gem 'rails_12factor', '0.0.2'
+  # Unicorn is a server (such as WEBrick), only more potent and capable of running a bigger app without major problems on a platform such as Heroku.
+  gem 'unicorn',           '4.8.3'
 end
