@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :name, :email
+  attr_accessible :name, :email, :password, :password_confirmation
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #constant for the RegEx that validates the e-mail; more info on README.md
   has_secure_password #method used with bcrypt gem, which uses cryptographic hash functions before storing a password (http://en.wikipedia.org/wiki/Hash_function)
 
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   #(format: {with: "..."}): checks wheter the input matches a pattern. '{without: "..."}' checks wheter the input does not match a certain pattern.
   #(uniqueness: true): obviously checks for uniqueness in the DB; a duplicat should not be valid, even if written with a different pattern of upper/downcase chars.
 
-  validates(:password_digest, length: {minimum: 6, maximum: 16})
+  validates(:password_digest, length: {minimum: 6})
 
   before_save {self.email = self.email.downcase} #guarantees the email will be saved in a standardized downcase format. note that 'before_save' uses a block as input if it is needed to assign a variable.
 end
