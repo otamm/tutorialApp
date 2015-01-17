@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # syntax for route naming: <HTTP method> '<name that will correspond to the page on URL>' => '<method of a pre-defined controller>'
   get 'sessions/new'
 
   root 'static_pages#home' #changes 'URL code' to 'Ruby code', "class_name#method" is the syntax for returning the home controller method for 'static_pages' controller.
@@ -7,12 +8,15 @@ Rails.application.routes.draw do
 
   get 'about'               => 'static_pages#about'
 
-  #match 'signup'            => 'users#new' #only '_path' methods automatically created are these generated through 'resources'
-
-
   resources :users, except: :new
 
   get 'signup'            , to: 'users#new', as: :signup #only '_path' methods automatically created are these generated through 'resources'
+
+  get 'login'               => 'sessions#new'    #instead of adding something like 'resources :sessions', well only add the specific HTTP methods
+                                                 #needed to manage user's sessions.
+  post 'login'              => 'sessions#create' #get 'login' : page for new sessions; post 'login' : send form info to server (successful login or not) ; delete 'logout' : destroys session, once website is accessed again, login form will need to be filled in order to access user's area.
+
+  delete 'logout'           => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
