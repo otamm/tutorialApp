@@ -49,7 +49,9 @@ group :test do
   gem 'guard-minitest',     '2.3.1'
 end
 
-#group :production do
-#  gem 'pg',             '0.17.1'
-#  gem 'rails_12factor', '0.0.2'
-#end
+group :production do
+# gem 'pg',             '0.17.1'
+# gem 'rails_12factor', '0.0.2'
+# Unicorn is a server (such as WEBrick), only more potent and capable of running a bigger app without major problems on a platform such as Heroku.
+gem 'unicorn',           '4.8.3'
+end
