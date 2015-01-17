@@ -14,6 +14,7 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  config.force_ssl = true # SSL (Secure Socket Layer) enables encryption of data sent to the app. This allows a network package sniffer to no capture login/signup sensitive data such as password when a form is submitted.
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like
