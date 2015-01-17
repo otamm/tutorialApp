@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   root 'static_pages#home' #changes 'URL code' to 'Ruby code', "class_name#method" is the syntax for returning the home controller method for 'static_pages' controller.
 
   get 'help'                => 'static_pages#help'
