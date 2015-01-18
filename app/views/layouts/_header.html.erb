@@ -1,5 +1,10 @@
 <!--complete HTML for the _header.html.erb displayed through the app. Bootsrap classes have been commented out.-->
-<header><!-- class="navbar navbar-fixed-top navbar-inverse">-->
+  <title><%= yield(:title) %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= debug(params) if Rails.env.development? %>
+<!--<header><!- class="navbar navbar-fixed-top navbar-inverse">-->
   <div><!-- class="container"> -->
     <nav>
       <ul><!--class="nav navbar-nav navbar-right">-->
@@ -27,4 +32,4 @@
       </ul><!-- navbar -->
     </nav>
   </div><!-- container -->
-</header><!-- navbar navbar-fixed-top navbar-inverse -->
+<!--</header><!- navbar navbar-fixed-top navbar-inverse -->

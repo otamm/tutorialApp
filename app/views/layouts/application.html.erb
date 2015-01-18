@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:title) %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <%= debug(params) if Rails.env.development? %>
+  <%= render 'layouts/header' %> <!-- the header to be displayed through all pages: '_header.html.erb' -->
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="body">
+    <%= yield %> <!-- 'yield' here displays on the layout body the contents of the view assigned for the specific page being accessed.
+  </div><!--body -->
+  <div id="footer">
+    <%= render 'layouts/footer' %> <!-- footer to be displayed through all pages: '_footer.html.erb' ; also note that the footer and header are on different divs so it will be easier to display them with a certain margin.
+  </div><!-- footer -->
 </body>
 </html>
