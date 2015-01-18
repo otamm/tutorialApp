@@ -13,4 +13,9 @@ module SessionsHelper
     # before iterating over the database to assign a session that user which has the same id as the one stored on 'sessions[:user_id]'.
     # also recall that the value of 'sessions[:user_id]' is encrypted and if it already has a value assigned the data returned is the decrypted user.id
   end
+
+  def logged_in? # a shortcut to return either 'true' or 'false' based on wheter or not there is a running session for that user.
+    !current_user.nil? #the '!' means 'not', that is, 'the result of current_user.nil? is *not* true'
+  end
+
 end
