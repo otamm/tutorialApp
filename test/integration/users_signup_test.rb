@@ -18,7 +18,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "legitimate signup saves user to db & renders user page" do
-    get signup_path
+    get '/signup'
+    user = {
+      name: "Akshovsky Johnson",
+      email: "akj_swag@bol.com",
+      password: "h4ck3d",
+      password_confirmation: "h4ck3d"
+    }
     assert_difference 'User.count' do
       post users_path, user: {
         name: "Akshovsky Johnson",
@@ -27,6 +33,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         password_confirmation: "h4ck3d"
       }
     end
+      user = User.find_by(email: "akj_swag@bol.com")
+      get '/users/' + user.id.to_s
       assert_template 'users/show'
   end
 
