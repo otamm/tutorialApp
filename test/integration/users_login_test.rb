@@ -8,7 +8,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'sessions/new'
     post login_path, session: { email: "ayedonotexist@nonono.net", password: "h4ck3d" }
     assert_template 'sessions/new'
-    assert flash.now[:danger] == "Wops! The email ayedonotexist@nonono.net is not registered."
+    assert flash.now[:danger] == "Wops! The email ayedonotexist@nonono.net is not registered." # the '.now' after 'flash[]' makes the 'flash[]' be active only until the next HTTP request is sent.
     get root_path
     assert flash.empty? #tests if flash[:alert] is active for only one HTTP request.
   end
