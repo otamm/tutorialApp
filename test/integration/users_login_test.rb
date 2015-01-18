@@ -8,7 +8,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'sessions/new'
     post login_path, session: { email: "ayedonotexist@nonono.net", password: "h4ck3d" }
     assert_template 'sessions/new'
-    assert flash[:danger] == "Wops! The email ayedonotexist@nonono.net is not registered."
+    assert flash.now[:danger] == "Wops! The email ayedonotexist@nonono.net is not registered."
     get root_path
     assert flash.empty? #tests if flash[:alert] is active for only one HTTP request.
   end
@@ -21,7 +21,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     valid_user.save #creates a record for valid_user in the Test environment db.
     post login_path, session: { email: valid_user.email, password: "wopswrongpassword" }
     assert_template 'sessions/new'
-    assert flash[:danger] == "Wops! Wrong password!"
+    assert flash.now[:danger] == "Wops! Wrong password!"
     valid_user.destroy
     assert total_users == User.all.count #checks if 'valid_user' was deleted from db.
     get root_path
