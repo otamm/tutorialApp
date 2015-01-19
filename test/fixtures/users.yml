@@ -9,3 +9,10 @@
 #
 #two: {} removed.
 #  column: value
+
+#FIXTURES: dummy objects created to be run as tests. they must be valid and be temporarly registered on a test database.
+
+bob:
+  name: Bob Bobby
+  email: bob@bobbie.bob
+  password_digest: <%= User.digest('h4ck3d') %> # the 'User.digest()' class method can be found on /models/user.rb 

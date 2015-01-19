@@ -15,4 +15,11 @@ class User < ActiveRecord::Base
   validates(:password, length: {minimum: 6, maximum: 16})
 
   before_save {self.email = self.email.downcase} #guarantees the email will be saved in a standardized downcase format. note that 'before_save' uses a block as input if it is needed to assign a variable.
+
+  def User.digest(string) # this methods creates an user fixture (a valid object to be assigned to a test database in order to run tests).
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost # the 'cost' is the computational cost to decypher the string. A low cost makes it easy, a very high cost, nearly impossible.
+
+    BCrypt::Password.create(string, cost: cost) # the value returned will be the string passed as an argument to User.digest() encrypted at the lowest computational cost possible, as it will be only used for testing (the computational cost for production mode will be set to high)
+  end
+
 end
