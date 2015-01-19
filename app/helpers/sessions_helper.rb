@@ -18,4 +18,9 @@ module SessionsHelper
     !current_user.nil? #the '!' means 'not', that is, 'the result of current_user.nil? is *not* true'
   end
 
+  def log_out # deletes the current session.
+    session.delete(:user_id) # invokes the 'delete' method that comes with the 'session' object.
+    @current_user = nil # clearing the '@current_user' current value is done separatedly from the above action.
+  end
+
 end

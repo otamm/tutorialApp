@@ -31,7 +31,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert flash.empty? #tests if flash[:alert] is active for only one HTTP request.
   end
 
-  test "login with valid info" do
+  test "login with valid info and then logout" do
     get login_path
     post login_path, session: { email: @user.email, password: 'h4ck3d' } # 'h4ck3d' == bob's legitimate password.
     assert_redirected_to @user # assert the right redirect target.
@@ -40,8 +40,15 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path, count: 0 # verify that login link disappear by verifying there are 0 login paths on the page (should be replaced by 'sign out')
     assert_select "a[href=?]", logout_path # verify that 'logout' link is actually displayed.
     assert_select "a[href=?]", user_path(@user) # verify that a link to the logged user's profile page is displayed.
-  end # the terminal command below is used to run this specific test of this specific file.
+  # the terminal command below is used to run this specific test of this specific file.
   # (1st chmod) $ bundle exec rake test TEST=test/integration/users_login_test.rb \
   # (2nd chmod) >  TESTOPTS="--name test_login_with_valid_information"
+    delete logout_path # 'delete' is the HTTP method.
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", logout_path, count: 0
+    assert_select "a[href=?]", user_path(@user), count: 0
+  end
 
 end

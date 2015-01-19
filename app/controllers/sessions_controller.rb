@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
   end
 
   def delete # delete is different than destroy;
-    
+    log_out # defined on '/app/helpers/sessions_helper.rb'
+    redirect_to(root_url) # root_path would add the path to the current URL (/logout).
   end
 
 end
