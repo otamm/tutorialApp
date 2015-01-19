@@ -27,6 +27,15 @@ class UsersController < ApplicationController
 
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params) # 'user_params' is used here to make use of the strong_params feature and prevent the mass assignment vulnerability (which could enable an user changing its account status to 'admin' for instance)
+
+    else
+      render 'edit'
+    end
+  end
+
   private #private methods which are better off running exclusively on the back end of the app.
 
   def user_params #prevents CSRF attacks
