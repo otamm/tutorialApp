@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:edit, :update] # this 'before_filter' runs a method before the specified methods :edit and :update (ie only the owner of a profile can edit this profile).
+  before_action :correct_user, only: [:edit, :update] # this will assure that the 'correct user' is accessing the page (i.e. an admin-only page or other user settings page)
 
   def index
     @users = User.all
@@ -40,6 +41,12 @@ class UsersController < ApplicationController
     end
   end
 
+  private #private methods which are better off running exclusively on the back end of the app.
+
+  def user_params #prevents CSRF attacks
+    params.require(:user).permit(:name, :email, :password, :password_confirmation) #for the 'user' method in the 'params' object, only these attributes can be passed; all the rest are banned.
+  end
+
   def logged_in_user
     unless logged_in?
       flash[:danger] = "Please log in."
@@ -47,10 +54,9 @@ class UsersController < ApplicationController
     end
   end
 
-  private #private methods which are better off running exclusively on the back end of the app.
-
-  def user_params #prevents CSRF attacks
-    params.require(:user).permit(:name, :email, :password, :password_confirmation) #for the 'user' method in the 'params' object, only these attributes can be passed; all the rest are banned.
+  def correct_user # define a method to check if the page requested by the user corresponds to the page the account should have access to.
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user) # defined on helpers/sessions_helper.rb
   end
 
 end

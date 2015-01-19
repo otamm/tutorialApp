@@ -47,4 +47,8 @@ module SessionsHelper
     @current_user = nil # clearing the '@current_user' current value is done separatedly from the above action.
   end
 
+  def current_user?(user) # created out of convention, 'current_user' can be used to do exactly this.
+    user == current_user
+  end
+
 end
