@@ -30,7 +30,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params) # 'user_params' is used here to make use of the strong_params feature and prevent the mass assignment vulnerability (which could enable an user changing its account status to 'admin' for instance)
-
+      flash[:success] = "Profile information was successfully updated."
+      redirect_to @user
     else
       render 'edit'
     end
