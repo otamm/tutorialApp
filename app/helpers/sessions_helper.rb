@@ -7,7 +7,7 @@ module SessionsHelper
   def remember(user) # generates a continuous session for an user (aka 'cookie')
     user.remember # this 'remember' is defined on '/app/models/user.rb'
     cookies.permanent.signed[:user_id] = user.id
-    cookies.permanent[:remember_token] = remember_token # defined on user model. this one is encrypted when saved on the db, thus adding security to cookie assignment.
+    cookies.permanent[:remember_token] = user.remember_token # defined on user model. this one is encrypted when saved on the db, thus adding security to cookie assignment.
   end
 
   def current_user # returns the current logged in user if the page is being accessed by a registered user.

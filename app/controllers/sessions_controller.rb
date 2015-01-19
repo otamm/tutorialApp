@@ -10,6 +10,11 @@ class SessionsController < ApplicationController
       if user.authenticate(params[:session][:password]) # if user exists, checks if the input in the password form field is indeed associated with the user that has the email provided in the email form field.
         user.remember # helper defined on 'sessions_helper.rb'
         log_in(user) #helper defined on 'sessions_helper.rb'
+        if params[:session][:remember_me] == '1' # stores cookies if checkbox is checked, deletes them otherwise.
+          remember(user) # defined on sessions helper.
+        else
+          forget(user) # defined on sessions helper.
+        end
         redirect_to(user) #compact redirect; Rails automatically gets URL to this specific 'user' profile page through 'user_url(user)' (note that the argument must be an existing user on the DB.)
       else # display alert for 'wrong password' if password doesn't matches the one registered in the account.
         flash.now[:danger] = "Wops! Wrong password!"

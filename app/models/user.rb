@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, User.digest(remember_token) ) # the method 'update_attribute' bypasses db validations; the generated string is encrypted before being saved on the db so a potential attacker cannot hijack a session using XSS attacks or by capturing the token with a packet sniffer.
   end
 
-  def forget # to be used when an user manually logs out of the app, it will destroy the cookie that matches the one saved in the browser and therefore not automatically log in to the app when it is accessed by that computer.
+  def self.forget # to be used when an user manually logs out of the app, it will destroy the cookie that matches the one saved in the browser and therefore not automatically log in to the app when it is accessed by that computer.
     update_attribute(:remember_digest, nil)
   end
 
