@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   #(format: {with: "..."}): checks wheter the input matches a pattern. '{without: "..."}' checks wheter the input does not match a certain pattern.
   #(uniqueness: true): obviously checks for uniqueness in the DB; a duplicat should not be valid, even if written with a different pattern of upper/downcase chars.
 
-  validates(:password, length: {minimum: 6, maximum: 16})
+  validates(:password, length: {minimum: 6, maximum: 16}, allow_blank: true) # this 'allow_blank:true' does not let a user sign up with a blank password because of the 'has_secure_password' method activated when a new User instance is created.
 
   before_save {self.email = self.email.downcase} #guarantees the email will be saved in a standardized downcase format. note that 'before_save' uses a block as input if it is needed to assign a variable.
 
@@ -33,12 +33,12 @@ class User < ActiveRecord::Base
   end
 
   def self.forget # to be used when an user manually logs out of the app, it will destroy the cookie that matches the one saved in the browser and therefore not automatically log in to the app when it is accessed by that computer.
-    update_attribute(:remember_digest, nil)
+    update_attribute(self.remember_digest, nil)
   end
 
   def authenticated?(remember_token) # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
     return false if remember_digest.nil?
-    BCrypt::Password.new(:remember_digest).is_password?(remember_token)
+    BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
   end
 
 end

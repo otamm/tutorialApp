@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :logged_in_user, only: [:edit, :update] # this 'before_filter' runs a method before the specified methods :edit and :update (ie only the owner of a profile can edit this profile).
+
   def index
     @users = User.all
   end
@@ -34,6 +37,13 @@ class UsersController < ApplicationController
       redirect_to @user
     else
       render 'edit'
+    end
+  end
+
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
     end
   end
 

@@ -5,7 +5,6 @@ require 'rails/test_help'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-
   # Logs in a test user.
   def log_in_as(user, options = {}) # by default, 'options' will be an empty hash.
     password    = options[:password]    || 'password'
