@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :remember_token
   attr_accessible :name, :email, :password, :password_confirmation, :remember_token
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #constant for the RegEx that validates the e-mail; more info on README.md
   has_secure_password #method used with bcrypt gem, which uses cryptographic hash functions before storing a password (http://en.wikipedia.org/wiki/Hash_function)
@@ -31,16 +32,12 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, User.digest(remember_token) ) # the method 'update_attribute' bypasses db validations; the generated string is encrypted before being saved on the db so a potential attacker cannot hijack a session using XSS attacks or by capturing the token with a packet sniffer.
   end
 
-  def authenticate # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
-    BCrypt::Password.new(:remember_digest).is_password?(remember_token)
-  end
-
   def forget # to be used when an user manually logs out of the app, it will destroy the cookie that matches the one saved in the browser and therefore not automatically log in to the app when it is accessed by that computer.
     update_attribute(:remember_digest, nil)
   end
 
   def authenticated?(remember_token) # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
-    return false if remember_token.nil?
+    return false if remember_digest.nil?
     BCrypt::Password.new(:remember_digest).is_password?(remember_token)
   end
 

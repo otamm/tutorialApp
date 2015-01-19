@@ -18,9 +18,9 @@ module SessionsHelper
     # works on the same logic as for example the 'a += b' operator, which adds to the variable 'a' its own value + the value of b. The conditional assignment on this specific case is useful because it promptly checks wheter or not there is a session running for 'current_user'
     # before iterating over the database to assign a session that user which has the same id as the one stored on 'sessions[:user_id]'.
     # also recall that the value of 'session[:user_id]' is encrypted and if it already has a value assigned the data returned is the decrypted user.id
-    if (user_id == session[:user_id])
+    if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id) # first of all, check if there is a running temporary session. if there's not, check if there is a cookie being sent by the browser, then check if it is a legitimate cookie by a legitimate user.
-    elsif (user_id == cookies.signed[:user_id])
+    elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
       if user # if user exists
         if user.authenticated?(cookies[:remember_token]) # if this user has a cookie associated with it
