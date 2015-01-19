@@ -15,4 +15,9 @@
 bob:
   name: Bob Bobby
   email: bob@bobbie.bob
-  password_digest: <%= User.digest('h4ck3d') %> # the 'User.digest()' class method can be found on /models/user.rb 
+  password_digest: <%= User.digest('h4ck3d') %> # the 'User.digest()' class method can be found on /models/user.rb
+
+archer:
+  name: Sterling Archer
+  email: duchess@example.gov
+  password_digest: <%= User.digest('password') %>
