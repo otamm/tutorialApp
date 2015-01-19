@@ -45,10 +45,15 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   # (2nd chmod) >  TESTOPTS="--name test_login_with_valid_information"
     delete logout_path # 'delete' is the HTTP method.
     assert_redirected_to root_url
+    delete logout_path # simulates the 'logout' button being pressed by an already logged out user.
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
     assert_select "a[href=?]", user_path(@user), count: 0
+  end
+
+  test ".authenticated? should return false for a user with a nil token digest" do
+    assert_not @user.authenticated?('')
   end
 
 end

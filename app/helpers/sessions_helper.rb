@@ -36,6 +36,12 @@ module SessionsHelper
     !current_user.nil? #the '!' means 'not', that is, 'the result of current_user.nil? is *not* true'
   end
 
+  def forget(user)
+    user.forget # this forget here is defined on the user model.
+    cookies.delete[:user_id] # deletes the encrypted user_id from the cookie associated with this session.
+    cookies.delete[:remember_token] # deletes the encrypted remember_token from the cookie associated with this session.
+  end
+
   def log_out # deletes the current session.
     session.delete(:user_id) # invokes the 'delete' method that comes with the 'session' object.
     @current_user = nil # clearing the '@current_user' current value is done separatedly from the above action.

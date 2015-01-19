@@ -18,7 +18,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "legitimate signup saves user to db & renders user page" do
-    get '/signup'
+    get signup_path
     user = {
       name: "Akshovsky Johnson",
       email: "akj_swag@bol.com",
