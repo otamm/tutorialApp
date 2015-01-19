@@ -36,6 +36,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       user = User.find_by(email: "akj_swag@bol.com")
       get '/users/' + user.id.to_s
       assert_template 'users/show'
+      asser is_logged_in? # defined on '/test/test_helper.rb'
   end
 
 end
