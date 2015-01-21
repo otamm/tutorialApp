@@ -51,4 +51,13 @@ module SessionsHelper
     user == current_user
   end
 
+  def store_location # stores the page trying to be accessed unless the page is one which the user would not have access to.
+    session[:forwarding_url] = request.url if request.get? # if the request sent is a GET, store the page in session[:forwarding_url]
+  end
+
+  def redirect_back_or(default=root_url) # redirects the user to page trying to be accessed or if session[:forwarding_url] is empty, redirects to a default page.
+    redirect_to(session[:forwarding_url] || default) # if it is possible to redirect to the page stored in the session[:forwarding_url] variable, redirect there.
+    session[:forwarding_url].delete
+  end
+
 end

@@ -13,9 +13,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_template 'users/edit'
   end
 
-  test "successful edit" do
-    log_in_as(@user)
-    get edit_user_path(@user)
+  test "successful edit with friendly forwarding" do # redirects user to page s/he clicked when signed out after logging in.
+    get edit_user_path(@user) # loads edit page while signed out.
+    log_in_as(@user) # logs into account.
+    get edit_user_path(@user) # now, the previously visited page is opened.
     assert_template 'users/edit'
     name = "Hellow Zees"
     email = "aaa@gsnail.net"

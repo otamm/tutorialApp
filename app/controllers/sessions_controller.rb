@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         else
           forget(user) # defined on sessions helper.
         end
-        redirect_to(user) #compact redirect; Rails automatically gets URL to this specific 'user' profile page through 'user_url(user)' (note that the argument must be an existing user on the DB.)
+        redirect_back_or(user) # (defined on sessions_helper.rb) compact redirect; Rails automatically gets URL to this specific 'user' profile page through 'user_url(user)' (note that the argument must be an existing user on the DB.)
       else # display alert for 'wrong password' if password doesn't matches the one registered in the account.
         flash.now[:danger] = "Wops! Wrong password!"
         render 'new'
