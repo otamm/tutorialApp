@@ -38,8 +38,8 @@ module SessionsHelper
 
   def forget(user)
     user.forget # this forget here is defined on the user model.
-    cookies.delete[:user_id] # deletes the encrypted user_id from the cookie associated with this session.
-    cookies.delete[:remember_token] # deletes the encrypted remember_token from the cookie associated with this session.
+    cookies.delete(:user_id) # deletes the encrypted user_id from the cookie associated with this session.
+    cookies.delete(:remember_token) # deletes the encrypted remember_token from the cookie associated with this session.
   end
 
   def log_out # deletes the current session.
@@ -57,7 +57,7 @@ module SessionsHelper
 
   def redirect_back_or(default=root_url) # redirects the user to page trying to be accessed or if session[:forwarding_url] is empty, redirects to a default page.
     redirect_to(session[:forwarding_url] || default) # if it is possible to redirect to the page stored in the session[:forwarding_url] variable, redirect there.
-    session[:forwarding_url].delete
+    session[:forwarding_url].delete if session[:forwarding_url]
   end
 
 end

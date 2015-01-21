@@ -31,6 +31,10 @@ class UsersController < ApplicationController
 
   end
 
+  def edit
+    @user = current_user
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params) # 'user_params' is used here to make use of the strong_params feature and prevent the mass assignment vulnerability (which could enable an user changing its account status to 'admin' for instance)
@@ -52,6 +56,8 @@ class UsersController < ApplicationController
       store_location # defined on sessions_helper.rb
       flash[:danger] = "Please log in."
       redirect_to login_url
+    else
+      current_user
     end
   end
 
