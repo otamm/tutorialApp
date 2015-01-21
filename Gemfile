@@ -13,6 +13,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'faker', '1.4.2'
 
+gem 'will_paginate',           '3.0.7' #pagination
+gem 'bootstrap-will_paginate', '0.0.10'#basic pagination styling
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '>= 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
