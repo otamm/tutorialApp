@@ -1,3 +1,10 @@
+<% provide(:title, "All Users") %>
+<h1> User List </h1>
+<ul class="users">
 <% @users.all.each do |user| %>
-<%= user.name %>, <%= user.email %>
+  <li>
+    <%= gravatar_for(user), size: 50 %> <!-- the gravatar_for() method takes only one parameter; the 'size:50' is manipulated by Rails directly. -->
+    <%= link_to(user.name), user %><!-- the string with the user name will be displayed -->
+  </li>
 <% end %>
+</ul><!-- users -->
