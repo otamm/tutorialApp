@@ -11,6 +11,7 @@ gem 'uglifier', '>= 2.5.3'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+gem 'faker', '1.4.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '>= 4.0.0'
