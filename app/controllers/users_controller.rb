@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:index, :edit, :update] # this 'before_filter' runs a method before the specified methods :edit and :update (ie only the owner of a profile can edit this profile).
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy] # this 'before_filter' runs a method before the specified methods :edit and :update (ie only the owner of a profile can edit this profile).
   before_action :correct_user, only: [:edit, :update] # this will assure that the 'correct user' is accessing the page (i.e. an admin-only page or other user settings page)
 
   def index
@@ -43,6 +43,12 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy # 'destroy' and note 'delete' because while 'delete' only erases an user, 'destroy' runs validations before doing so.
+    User.find(params[:id]).destroy
+    flash[:sucess] = "User deleted."
+    redirect_to users_url
   end
 
   private #private methods which are better off running exclusively on the back end of the app.
