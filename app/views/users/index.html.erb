@@ -2,10 +2,7 @@
 <h1> User List </h1>
 <ul class="users">
 <% @users.each do |user| %>
-  <li>
-    <%= gravatar_for(user) %> <!-- the gravatar_for() method takes only one parameter and returns an image tag; the 'size:50' is manipulated by Rails directly and is a complement of the image_tag() Rails method.. -->
-    <%= link_to user.name, user %><!-- the string with the user name will be displayed -->
-  </li>
-<% end %>
-</ul><!-- users -->
+  <%= render user %><!-- defined on /app/views/users/_user.html.erb -->
+<% end %><!-- the block could be replaced by 'render @users', as Rails would identify the User object and search for a correspondent view. -->
+</ul>
 <%= will_paginate %><!-- available on Gemfile -->
