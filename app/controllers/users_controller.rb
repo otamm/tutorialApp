@@ -72,4 +72,8 @@ class UsersController < ApplicationController
     redirect_to(root_url) unless current_user?(@user) # defined on helpers/sessions_helper.rb
   end
 
+  def admin_user
+    redirect_to(root_url) unless current_user.role == 1 # if the request wasn't sent by an admin, redirect to URL. Impossibilitate attacks to the website via command line (since even though the link is not displayed, the request can be sent unless specifically forbidden)
+  end
+
 end
