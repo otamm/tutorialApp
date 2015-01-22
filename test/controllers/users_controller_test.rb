@@ -36,11 +36,37 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should redirect update when logged in as wrong user" do
+  test "should redirect update request when logged in as wrong user" do
     log_in_as(@other_user)
-    patch :update, id: @user, user: { name: @user.name, email: @user.email }
+    patch :update, id: @user, user: { name: @user.name, email: @user.email } # <HTTP method> :controller_action, :id_of_object_of_action, <data to be sent (if request == POST or PATCH)>
     assert flash.empty?
     assert_redirected_to root_url
+  end
+
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'User.count' do
+      delete :destroy, id: @user
+    end
+    assert_redirect_to login_url
+  end
+
+  test "should redirect destroy request when logged in as a non-admin user" do
+    log_in_as(@other_user) # non-admin user
+    assert_no_difference 'User.count' do
+      delete :destroy, id: @user
+    end
+    assert_redirect_to login_url
+  end
+
+  test "should destroy user when requested by admin" do
+    @some_other_user = User.new(name: "I'm some dummy user born to be killed", email: "mr_suicide@tumblr.com", password: "h4ck3d", password_confimation: "h4cked")
+    @some_other_user.save
+    log_in_as(@user) #admin user
+    assert_difference 'User.count', -1 do
+      delete :destroy, id: @some_other_user
+    end
+    flash.message = "User deleted."
+    assert_redirect_to users_url
   end
 
 end

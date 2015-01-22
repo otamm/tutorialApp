@@ -16,6 +16,7 @@ bob:
   name: Bob Bobby
   email: bob@bobbie.bob
   password_digest: <%= User.digest('h4ck3d') %> # the 'User.digest()' class method can be found on /models/user.rb
+  role: 1 # 1 == admin
 
 archer:
   name: Sterling Archer
