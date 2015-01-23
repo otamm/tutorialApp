@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy] # this 'before_filter' runs a method before the specified methods :edit and :update (ie only the owner of a profile can edit this profile).
   before_action :correct_user, only: [:edit, :update] # this will assure that the 'correct user' is accessing the page (i.e. an admin-only page or other user settings page)
+  before_action :admin_user, only: [:destroy] # if the current user is not an admin, the 'destroy' method won't be executed.
 
   def index
     @users = User.paginate(page: params[:page]) # available from will_paginate on Gemfile
