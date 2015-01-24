@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #attr_accessor :remember_token
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_token
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_digest
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #constant for the RegEx that validates the e-mail; more info on README.md
   has_secure_password #method used with bcrypt gem, which uses cryptographic hash functions before storing a password (http://en.wikipedia.org/wiki/Hash_function)
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def remember # this method will assign a random string to serve as an identifier for cookies; unlike 'session', the 'cookie' method is not secure by default.
-    self.remember_token = User.new_token # won't actually save this value in a db.
+    remember_token = User.new_token # won't actually save this value in a db. 'remember_token' is independent from user, 'remember_digest' it's not.
     update_attribute(:remember_digest, User.digest(remember_token) ) # the method 'update_attribute' bypasses db validations; the generated string is encrypted before being saved on the db so a potential attacker cannot hijack a session using XSS attacks or by capturing the token with a packet sniffer.
   end
 

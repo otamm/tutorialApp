@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-
+    #defined here only to render the login page.
   end
 
   def create # the session params sent to the browser are 'params[:session] == {email: "xxx@xxx.xxx", password: "<bla bla bla>"}', meaning that the value for :session key is another hash.

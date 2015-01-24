@@ -65,7 +65,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference 'User.count', -1 do
       delete :destroy, id: @some_other_user
     end
-    flash.message = "User deleted."
+    assert flash.now[:success] == "User deleted."
     assert_redirect_to users_url
   end
 

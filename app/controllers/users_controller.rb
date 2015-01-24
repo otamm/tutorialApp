@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def destroy # 'destroy' and note 'delete' because while 'delete' only erases an user, 'destroy' runs validations before doing so.
     User.find(params[:id]).destroy
-    flash[:sucess] = "User deleted."
+    flash[:success] = "User deleted."
     redirect_to users_url
   end
 
