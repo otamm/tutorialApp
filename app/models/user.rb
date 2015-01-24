@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   #attr_accessor :remember_token
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_digest
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_digest, :activation_token, :activated, :activated_at
+  before_save :downcase_email #runs the method before a .save method when this is called.
+  before_create :create_activation_digest # runs the method before a .create method to associate an activation digest with an user just before s/he is saved on the DB.
+
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #constant for the RegEx that validates the e-mail; more info on README.md
   has_secure_password #method used with bcrypt gem, which uses cryptographic hash functions before storing a password (http://en.wikipedia.org/wiki/Hash_function)
@@ -40,6 +43,17 @@ class User < ActiveRecord::Base
   def authenticated?(remember_token) # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  private
+
+  def downcase_email # this method will be called before saving the e-mail on the db, will guarantee a downcased e-mail.
+    self.email = self.email.downcase
+  end
+
+  def create_activation_digest # will generate a random string for an user as soon as s/he signs up. The string will be associated with the account until the e-mail is confirmed.
+    activation_token = User.new_token # defined on this model, generates a random string.
+    self.activation_digest = User.digest(activation_token) # also defined on this model, generates a digested string (assigned here to the activation_digest)
   end
 
 end

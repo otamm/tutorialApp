@@ -1,5 +1,14 @@
 Sample App for the Rails tutorial.
 
+Deployment to Heroku:
+
+$ heroku login
+$ git push heroku master <pushes the master branch, which is supposed to be the most complete and functional of all.>
+$ heroku pg:reset DATABASE <if a lot of new content was added/deleted>
+$ heroku run rake db:migrate <if new migrations were added>
+$ heroku run rake db:seed <if there are important new DB seeds>
+$ heroku restart <if the DB was reseted>
+
 Regex Table:
 
 /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i :	full regex
