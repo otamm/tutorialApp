@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get 'about'               => 'static_pages#about'
 
-  resources :users, except: :new
+  resources :users, except: :new # each URL for the UsersController is created, except the one for the 'new' method.
 
   get 'signup'            , to: 'users#new', as: :signup #only '_path' methods automatically created are these generated through 'resources'
 
@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   post 'login'              => 'sessions#create' #get 'login' : page for new sessions; post 'login' : send form info to server (successful login or not) ; delete 'logout' : destroys session, once website is accessed again, login form will need to be filled in order to access user's area.
 
   delete 'logout'           => 'sessions#delete' # the method 'delete' is different than 'destroy.' More info on SessionsController.
-  
+
+  resources :account_activations, only: [:edit] # the 'account activation' controller will only create a route for '/edit' method.
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
