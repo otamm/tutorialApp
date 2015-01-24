@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  #attr_accessor :remember_token
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_digest, :activation_token, :activated, :activated_at
+  attr_accessible :name, :email, :password, :password_confirmation, :activated, :activated_at
+  attr_accessor :remember_token,  :activation_token
   before_save :downcase_email #runs the method before a .save method when this is called.
   before_create :create_activation_digest # runs the method before a .create method to associate an activation digest with an user just before s/he is saved on the DB.
 
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   def remember # this method will assign a random string to serve as an identifier for cookies; unlike 'session', the 'cookie' method is not secure by default.
     remember_token = User.new_token # won't actually save this value in a db. 'remember_token' is independent from user, 'remember_digest' it's not.
-    update_attribute(:remember_digest, User.digest(remember_token) ) # the method 'update_attribute' bypasses db validations; the generated string is encrypted before being saved on the db so a potential attacker cannot hijack a session using XSS attacks or by capturing the token with a packet sniffer.
+    update_attribute(:remember_digest, User.digest(remember_token)) # the method 'update_attribute' bypasses db validations; the generated string is encrypted before being saved on the db so a potential attacker cannot hijack a session using XSS attacks or by capturing the token with a packet sniffer.
   end
 
   def forget # to be used when an user manually logs out of the app, it will destroy the cookie that matches the one saved in the browser and therefore not automatically log in to the app when it is accessed by that computer.
