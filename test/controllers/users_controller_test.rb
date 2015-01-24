@@ -47,7 +47,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_no_difference 'User.count' do
       delete :destroy, id: @user
     end
-    assert_redirect_to login_url
+    assert_redirected_to login_url
   end
 
   test "should redirect destroy request when logged in as a non-admin user" do
@@ -55,7 +55,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_no_difference 'User.count' do
       delete :destroy, id: @user
     end
-    assert_redirect_to login_url
+    assert_redirected_to root_url
   end
 
   test "should destroy user when requested by admin" do
@@ -66,7 +66,7 @@ class UsersControllerTest < ActionController::TestCase
       delete :destroy, id: @some_other_user
     end
     assert flash.now[:success] == "User deleted."
-    assert_redirect_to users_url
+    assert_redirected_to users_url
   end
 
 end
