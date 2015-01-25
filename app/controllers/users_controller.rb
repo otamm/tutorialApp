@@ -23,7 +23,8 @@ class UsersController < ApplicationController
                                     #better to use the 'strong_params' convention of Rails 4 and permit only a pre-defined set of params to be passed by the user (see user_params below).
     if @user.save #default action for saved user.
       log_in(@user)
-      flash[:notice] = "Thanks for signing up!" #popup triggered when new account is created.
+      UserMailer.account_activation(@user).deliver_now
+      flash[:notice] = "Thanks for signing up! Please check your e-mail inbox to activate your account." #popup triggered when new account is created.
       session[:user_id] = @user.id #session for the user is not created alongside the own user.
       redirect_to @user #equivalent to 'redirect_to(user_url(@user))', rails infer the 'user_url()' method
     else

@@ -23,7 +23,7 @@ module SessionsHelper
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
       if user # if user exists
-        if user.authenticated?(cookies[:remember_token]) # if this user has a cookie associated with it
+        if user.authenticated?(:remember, cookies[:remember_token]) # defined on /models/user.rb;means 'if this user has a cookie associated with it'
           log_in(user) # logs in the user which has a valid permanent session then assigns 'current_user' that will handle the temporary session
           @current_user = user
         end

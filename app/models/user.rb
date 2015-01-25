@@ -40,9 +40,10 @@ class User < ActiveRecord::Base
     self.update_attribute(:remember_digest, nil)
   end
 
-  def authenticated?(remember_token) # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token) # returns true if the given token (which will be automatically sent by the user's browser) matches the digest.
+    digest = self.send("#{attribute}_digest") # will pass the specific method that ends with '_digest' to this instance of the User object and return the attribute value. See 'metaprogramming'
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   private

@@ -64,4 +64,8 @@ class UserTest < ActiveSupport::TestCase #on terminal: $bundle exec rake test:mo
     @user.password_confirmation = "f41l_pwn3d"
     assert_not @user.valid?
   end
+
+  test ".authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?("remember", '')
+  end
 end
