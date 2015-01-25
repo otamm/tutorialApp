@@ -8,10 +8,13 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase) #downcase ensures a match if the address is indeed valid.
     if user #checks if users exists in the db.
       if user.authenticate(params[:session][:password]) # if user exists, checks if the input in the password form field is indeed associated with the user that has the email provided in the email form field.
-        remember(user) # helper defined on 'sessions_helper.rb'
+        if !user.activated?
+          message = "Account not yet activated. Please check the inbox for your e-mail (#{user.email})."
+          flash[:warning] = message
+        end
         log_in(user) #helper defined on 'sessions_helper.rb'
-        if params[:session][:remember_me] == '1' # stores cookies if checkbox is checked, deletes them otherwise.
-          remember(user) # defined on sessions helper.
+        if params[:session][:remember_me] == '1' # stores cookies in the user's browser if checkbox is checked, deletes them otherwise.
+          remember(user) # defined on sessions_helper.rb .
         else
           forget(user) # defined on sessions helper.
         end
