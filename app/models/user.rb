@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     UserMailer.account_activation(self).deliver_now # sends an email for the e-mail registered along this instance of the User object.
   end
 
-  def create_reset_token # sets the password reset attributes. associates a virtual attribute to serve as a reset token.
+  def create_reset_digest # sets the password reset attributes. associates a virtual attribute to serve as a reset token.
     self.reset_token = User.new_token
     update_attribute(:reset_digest, User.digest(reset_token) )
     update_attribute(:reset_sent_at, Time.zone.now)

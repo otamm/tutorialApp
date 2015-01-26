@@ -45,7 +45,7 @@ class PasswordResetsController < ApplicationController
   # before filters
 
   def get_user # searches for an user on the DB and assigns the value to the @user instance variable used through this action.
-    @user = find_by(email: params[:email])
+    @user = User.find_by(email: params[:email])
   end
 
   def password_blank? #returns true if password is blank.
