@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :activated, :activated_at
-  attr_accessor :remember_token,  :activation_token
+  attr_accessor :remember_token,  :activation_token, :reset_token
   before_save :downcase_email #runs the method before a .save method when this is called.
   before_create :create_activation_digest # runs the method before a .create method to associate an activation digest with an user just before s/he is saved on the DB.
 
@@ -53,6 +53,16 @@ class User < ActiveRecord::Base
 
   def send_activation_email
     UserMailer.account_activation(self).deliver_now # sends an email for the e-mail registered along this instance of the User object.
+  end
+
+  def create_reset_token # sets the password reset attributes. associates a virtual attribute to serve as a reset token.
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest, User.digest(reset_token) )
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email # sends the password reset e-mail with a link to the reset page.
+    UserMailer.password_reset(self).deliver_now # defined on mailers/user_mailer.rb
   end
 
   private
