@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver_now # defined on mailers/user_mailer.rb
   end
 
+  def password_reset_expired? # returns 'true' if the password reset token has been sent for more than 'x' hours.
+    reset_sent_at < 2.hours.ago # the time window for the creation and activation of the reset link cannot exceed 2 hours.
+  end
+
   private
 
   def downcase_email # this method will be called before saving the e-mail on the db, will guarantee a downcased e-mail.

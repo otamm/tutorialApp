@@ -1,4 +1,8 @@
 class PasswordResetsController < ApplicationController
+  before_action :get_user, only: [:edit, :update]
+  before_action :valid_user, only: [:edit, :update]
+  before_action :check_expiration, only: [:edit, :update]
+
   def new
   end
 
@@ -16,5 +20,49 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
+
   end
+
+  def update
+    if password_blank?
+      flash.now[:danger] = "Password can't be blank"
+      render 'edit'
+    elsif @user.update_attributes(user_params)
+      log_in(@user)
+      flash[:success] = "Password has been reset"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  # before filters
+
+  def get_user # searches for an user on the DB and assigns the value to the @user instance variable used through this action.
+    @user = find_by(email: params[:email])
+  end
+
+  def password_blank? #returns true if password is blank.
+    params[:user][:password].blank?
+  end
+
+  def valid_user # checks the @user defined by the method above and unless it exists and is authenticated, redirects to the home page.
+    unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]) ) # defined on models/user.rb
+      redirect_to root_url
+    end
+  end
+
+  def check_expiration # checks wheter the reset token is valid or not.
+    if @user.password_reset_expired? # defined on the user model
+      flash[:danger] = "This link has expired, please send a new one to your e-mail."
+      redirect_to new_password_reset_url
+    end
+  end
+
 end
