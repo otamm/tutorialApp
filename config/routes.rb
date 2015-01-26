@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   # syntax for route naming: <HTTP method> '<name that will correspond to the page on URL>' => '<method of a pre-defined controller>'
   get 'sessions/new'
 
@@ -19,6 +23,8 @@ Rails.application.routes.draw do
   delete 'logout'           => 'sessions#delete' # the method 'delete' is different than 'destroy.' More info on SessionsController.
 
   resources :account_activations, only: [:edit] # the 'account activation' controller will only create a route for '/edit' method.
+
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
