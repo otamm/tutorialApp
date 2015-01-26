@@ -46,6 +46,15 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  def activate # activates the account.
+    self.update_attribute(:activated, true) # 'self.' is optional inside models.
+    self.update_attribute(:activated_at, Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now # sends an email for the e-mail registered along this instance of the User object.
+  end
+
   private
 
   def downcase_email # this method will be called before saving the e-mail on the db, will guarantee a downcased e-mail.
