@@ -83,7 +83,7 @@ Rails.application.configure do
   # heroku config:get SENDGRID_USERNAME && heroku config:get SENDGRID_PASSWORD
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = '<your heroku app>.herokuapp.com'
+  host = 'immense-wave-5255.herokuapp.com/'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
@@ -92,5 +92,5 @@ Rails.application.configure do
     :user_name      => ENV['SENDGRID_USERNAME'],
     :password       => ENV['SENDGRID_PASSWORD'],
     :domain         => 'heroku.com',
-    :enable_starttls_auto => true
+    :enable_starttls_auto => true }
 end
