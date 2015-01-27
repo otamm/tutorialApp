@@ -4,7 +4,7 @@ class MicropostTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:bob)
-    @micropost = Micropost.new(content: "Lorem ipsum", user_id: @user.id)
+    @micropost = @user.microposts.build(content: "Lorem ipsum", user_id: @user.id) # a micropost is necessarily associated with an user. Note that the method is '.build()' is different from '.create()' because '.build()' returns an object while '.create()' returns and saves to the DB.
   end
 
   test "should be valid" do
