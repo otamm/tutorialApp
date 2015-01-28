@@ -17,3 +17,10 @@ User.find(1).update_attributes(role: 1)
   password = "h4ck3d_n00b"
   User.create!(name: name, email: email, password: password, password_confirmation: password, activated: true, activated_at: Time.zone.now)
 end
+
+users = User.order(:created_at).take(6) # take the first 6 users from the DB.
+
+50.times do # creates dummy content for these 6 users' microposts.
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
+end
