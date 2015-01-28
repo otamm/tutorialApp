@@ -3,15 +3,26 @@
 useless:
   content: "#omfg #instaomfg #celebs"
   created_at: <%= 10.minutes.ago %>
+  user: bob # defined on fixtures/users.yml
 
 illuminatti:
   content: "de iluminatee r here wake up sheeple"
   created_at: <%= 2.hours.ago%>
+  user: bob
 
 postsex:
   content: "#postsexselfie"
   created_at: <%= 3.months.ago %>
+  user: bob
 
 google:
   content: "guyze do any1 kno about how 2 make monies n stuf"
   created_at: <%= Time.zone.now %>
+  user: bob
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: bob
+<% end %>
