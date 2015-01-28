@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  content: MyText
-  user_id: 
+useless:
+  content: "#omfg #instaomfg #celebs"
+  created_at: <%= 10.minutes.ago %>
 
-two:
-  content: MyText
-  user_id: 
+illuminatti:
+  content: "de iluminatee r here wake up sheeple"
+  created_at: <%= 2.hours.ago%>
+
+postsex:
+  content: "#postsexselfie"
+  created_at: <%= 3.months.ago %>
+
+google:
+  content: "guyze do any1 kno about how 2 make monies n stuf"
+  created_at: <%= Time.zone.now %>
