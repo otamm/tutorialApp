@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token,  :activation_token, :reset_token
   before_save :downcase_email #runs the method before a .save method when this is called.
   before_create :create_activation_digest # runs the method before a .create method to associate an activation digest with an user just before s/he is saved on the DB.
+  has_many :microposts, dependent: :destroy # assures that all microposts associated with an user are destroyed when the user itself is destroyed.
 
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #constant for the RegEx that validates the e-mail; more info on README.md
