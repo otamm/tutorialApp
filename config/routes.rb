@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  resources :microposts, only: [:create, :destroy] # the interface to the Microposts model will run mainly through Home and Profile pages and the User model, so actions like 'new' and 'edit' are not mandatory.
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
