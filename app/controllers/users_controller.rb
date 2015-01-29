@@ -61,15 +61,16 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation) #for the 'user' method in the 'params' object, only these attributes can be passed; all the rest are banned.
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location # defined on sessions_helper.rb
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    else
-      current_user
-    end
-  end
+  # Moved this method to application_controller.rb
+  # def logged_in_user
+  #   unless logged_in?
+  #     store_location # defined on sessions_helper.rb
+  #     flash[:danger] = "Please log in."
+  #     redirect_to login_url
+  #   else
+  #     current_user
+  #   end
+  # end
 
   def correct_user # define a method to check if the page requested by the user corresponds to the page the account should have access to.
     @user = User.find(params[:id])
