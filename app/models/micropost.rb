@@ -6,7 +6,15 @@ class Micropost < ActiveRecord::Base
   mount_uploader :picture, PictureUploader # available with CarrierWave gem.
   validates :user_id, presence: true # post is only valid if it is associated with an user.
   validates :content, presence: true, length: { maximum: 140 } # post must have a content, content must have 140 chars at max.
+  validate :picture_size # here the method is 'validate' instead of 'validates' because it is calling a custom validation defined below.
 
+  private
+
+  def picture_size # validates the size (in bytes) of an uploaded picture.
+    if picture.size > 5.megabytes
+      errors.add("Image should have no more than 5 MB.")
+    end
+  end
 
 end
 
