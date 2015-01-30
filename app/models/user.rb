@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago # the time window for the creation and activation of the reset link cannot exceed 2 hours.
   end
 
+  def feed
+    Micropost.where("user_id = ?", id) # Used to display a feed on the home page. 
+  end
+
   private
 
   def downcase_email # this method will be called before saving the e-mail on the db, will guarantee a downcased e-mail.

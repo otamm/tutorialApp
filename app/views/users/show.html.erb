@@ -10,5 +10,7 @@
     <%= render @microposts %>
   </ol>
   <%= will_paginate @microposts %> <!-- '@microposts' must be passed as an argument because it is not the same model as the current controller (which is users).-->
+  <% else %>
+    <%= render 'shared/nothing' %>
   <% end %>
 </div>

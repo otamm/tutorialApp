@@ -2,7 +2,7 @@
 <div id="error_explanation">
   <div class="alert alert-danger">
     The form contains <%= pluralize(object.errors.count, "error") %>.
-  </div><!-- 'object' here is a variable that holds the object passed as an argument to a form_for() method.
+  </div><!-- 'object' here is a variable that holds the object passed as an argument to a form_for() method.-->
   <ul>
     <% object.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
