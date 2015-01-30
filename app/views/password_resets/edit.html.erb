@@ -4,9 +4,9 @@
 <div><!-- class="row"> -->
   <div><!-- class="col-md-6 col-md-offset-3">-->
     <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
-    <%= render 'shared/error_messages' %>
+    <%= render 'shared/error_messages', object: f.object %>
 
-    <%= hidden_field_tag :email, @user.email %> <!-- this here is used instead of 'f.hidden_field_tag' because the latter would post a 'params[:user][:email]' to the URL (the currently used method posts a params[:email], just as in the reset link) --> 
+    <%= hidden_field_tag :email, @user.email %> <!-- this here is used instead of 'f.hidden_field_tag' because the latter would post a 'params[:user][:email]' to the URL (the currently used method posts a params[:email], just as in the reset link) -->
 
     <%= f.label :password %>
     <%= f.password_field :password, class: 'form-control' %>

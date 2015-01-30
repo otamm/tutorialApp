@@ -1,7 +1,7 @@
 <% provide(:title,"Sign Up") %>
 <div><!-- below each tag it the HTML generated. -->
   <%= form_for(@user) do |f| %>
-    <%= render 'shared/error_messages' %> <!-- renders error messages if they need to be displayed. 'class:form-control' makes sure they are displayed on specific problematic input fields. -->
+    <%= render 'shared/error_messages', object: f.object %> <!-- renders error messages if they need to be displayed. 'class:form-control' makes sure they are displayed on specific problematic input fields. -->
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
     <!-- <label for="user_name">Name</label>
