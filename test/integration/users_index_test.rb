@@ -10,7 +10,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   test "index including pagination" do
     log_in_as(User.all.first)
     get '/users'
-    assert_template 'users/index'
+    assert_redirected_to users_url
     assert_select 'div.pagination'
     User.paginate(page: 1).each do |user|
       assert_select 'a[href=?]', user_path(user), text: user.name

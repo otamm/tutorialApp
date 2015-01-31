@@ -15,7 +15,7 @@ postsex:
   created_at: <%= 3.months.ago %>
   user: bob
 
-google:
+most_recent:
   content: "guyze do any1 kno about how 2 make monies n stuf"
   created_at: <%= Time.zone.now %>
   user: bob
