@@ -11,7 +11,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
   test "profile display" do
     get user_path(@user)
     assert_template 'users/show'
-    assert_select 'title', full_title(@user.name)
+    assert_select 'title', @user.name
     assert_select 'h1', text: @user.name # test for an h1 tag which has the name of the @user as text content inside.
     assert_select 'h1>img.gravatar' # this checks for an img tag with class 'gravatar' nested inside an h1 tag.
     assert_match @user.microposts.count.to_s, response.body # response.body returns the whole HTML of the page, not just the body; this line of code tests wheter or not the number of microposts posted by that user appears on the page.

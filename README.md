@@ -22,3 +22,8 @@ Regex Table:
 \z	                                 : match end of a string
 /	                                   : end of regex
 i	                                   : case-insensitive
+
+APP BASIC STRUCTURE:
+
+-app/:
+  where the models, views and controllers are located. Most of the customized code goes here.
